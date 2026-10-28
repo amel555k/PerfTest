@@ -1,0 +1,25 @@
+# Java / Maven / Gradle
+target/
+build/
+.gradle/
+*.class
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# C#
+bin/
+obj/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+.env
+
+# Ostalo
+.DS_Store
