@@ -32,6 +32,7 @@ public class Order{
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
     private List<OrderItem> items = new ArrayList<>();
 
     @PrePersist
