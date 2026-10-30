@@ -22,6 +22,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<CategoryStatDto> getCategoryStats();
 
     @Modifying
-    @Query("UPDATE Product p SET p.stock = p.stock - :qty WHERE P.id = :id AND p.stock >= :qty")
+    @Query("UPDATE Product p SET p.stock = p.stock - :qty WHERE p.id = :id AND p.stock >= :qty")
     int decreaseStock(@Param("id") Long id, @Param("qty") int qty);
 }
