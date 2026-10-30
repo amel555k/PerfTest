@@ -20,3 +20,22 @@ services:
         limits:
           cpus: "2"
           memory: 1g
+
+  spring-server:
+    build: ./spring-server
+    container_name: perftest-spring
+    profiles: ["spring"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/shop
+      DB_USER: shop
+      DB_PASSWORD: shop
+    ports:
+      - "8081:8081"
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 1g
