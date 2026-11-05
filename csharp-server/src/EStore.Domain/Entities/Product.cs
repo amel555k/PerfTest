@@ -1,4 +1,4 @@
-namespace EStore.Domain.Entites;
+namespace EStore.Domain.Entities;
 
 public class Product
 {
