@@ -27,7 +27,7 @@ internal sealed class ProductService(IProductRepository products) : IProductServ
 
     public Task<IReadOnlyList<CategoryStatsDto>> GetCategoryStatsAsync(CancellationToken ct) =>
         products.GetCategoryStatsAsync(ct);
-        
+
 
     // that crossroad function
      private static void ValidatePaging(int page, int size)
@@ -36,3 +36,19 @@ internal sealed class ProductService(IProductRepository products) : IProductServ
         if (size is < 1 or > 100) throw new BadRequestException("Validation failed: size must be between 1 and 100");
     }
 }
+
+
+/*
+[Internal and Sealed]
+
+Internal means that 
+- Upper layers cannot call new ProductService(); (security)
+- API layer can only see IProductService, not ProductService
+
+Sealed means that
+- no one can inherit that 
+- JIT sometimes optimizes it more easialy
+
+
+
+*/
