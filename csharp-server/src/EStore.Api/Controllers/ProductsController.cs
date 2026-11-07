@@ -24,3 +24,12 @@ public class ProductsController(IProductService products) : ControllerBase
     Ok(await products.GetByIdAsync(id, ct));
 
 }
+
+/*
+[ ROUTING ]
+- [ApiController] does a lot of job automatically
+    -- evaluates the source of parameters (route, query, body)
+    -- automat. returns 400 when binding fails in format ProblemDetails
+        --- API contract wants { "error": ...} so we override
+
+*/

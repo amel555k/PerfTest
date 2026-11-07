@@ -25,3 +25,14 @@ builder.Services.AddControllers()
     app.MapControllers();
 
     app.Run();
+
+
+/*
+[API LAYER]
+- meeting place of all layers
+- encapsulation tells that if someone calls IProductService, give ProductService 
+- Every Layer register themself with extensions AddApplication, AddInfrastructure, so API layer doesnt see the internal classes
+
+- DI Container recursively builds the chain (controller -> service -> repo -> Dbcontext)
+
+*/

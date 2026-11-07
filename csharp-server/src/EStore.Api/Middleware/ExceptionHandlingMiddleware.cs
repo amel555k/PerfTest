@@ -37,3 +37,13 @@ internal sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<
 
     }
 }
+
+/*
+[MIDDLEWARE PIPELINE]
+- every request is going through component chain, every segment works before next(ctx)
+- register sequence is execute sequence, thats why this Middleware is first 
+    -- Exception wherever beneath it (service, repo, DB) travels upwards through awaits, beacuse async methods propagates exception to place where someone waits the result
+    -- without it, every Controller would have try catch
+
+
+*/
