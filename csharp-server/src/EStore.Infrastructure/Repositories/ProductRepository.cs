@@ -93,3 +93,19 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
     
 
 }
+
+
+/*
+[IQueryable vs IEnumerable]
+- db.Products.Where(...) runs none, it bulds a tree which EF translates in SQL only on TOListASync/FirstOrDefaultASync/CountASync
+- correct steps suggests That type of translators goes at the end after formulating SQL query via LINQ
+- Thats why is ToPageAsync receives IQueryable because its not the end of process
+
+- for read-only queries use AsNoTracking() that means we are not tracking changes because there are not chenges (perf. benefit)
+
+[DETAILS FOR BETTER PRECISION IN COMPARISON]
+
+- Math.Round in .NET rounds evenly by default (banker's rounding) so we explicitly put AwayFromZero for matching with SQL'S and Java's HALF_UP
+
+- we treat % and _ like a basic text  
+*/

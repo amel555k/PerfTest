@@ -17,3 +17,14 @@ internal sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbC
         
     }
 }
+
+/*
+[AppDbContext multifunc.]
+
+1. Unit of work - collects changes and sends them to SaveChanges()
+2. Identity map - when you search Product with Id 5 twice, returns same object
+3. Change tracker - remembers what you have changed
+
+DbSet<> is suma suamrum repository
+
+*/

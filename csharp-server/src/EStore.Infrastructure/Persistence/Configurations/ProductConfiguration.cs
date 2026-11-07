@@ -14,3 +14,12 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         b.Property(p => p.Price).HasPrecision(10, 2);
     }
 }
+
+
+/*
+[FLUENT API VS ATTRBUTES]
+- with attributes implementation, EF namespacewill be covered in Doamin layer too and that ruins zero depen.
+- with naming convensions and zero migrations method, EF is clear mapper so there are not scheme testing per start
+
+
+*/

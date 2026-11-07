@@ -70,3 +70,26 @@ internal sealed class OrderRepository(AppDbContext db) : IOrderRepository
     );
 
 }
+
+
+/*
+[FIRST TIME DOING POST METHOD]
+
+naive decreasing stock in C# instead in base:
+var p = await var p = await db.Products.FindAsync(id);   // read stock = 1
+p.Stock -= 1;                                            // calculate in C#
+await db.SaveChangesAsync();                             // write 0
+
+that is a lost update scenario where two paralel reqs reads and writes 0 
+
+so EF do the calculations via SQL then theres no concurency and bad behaviour
+and when first one commits, Psql evaluates again stock >= @q
+
+[TRANSACTIONS]
+
+- when we explicitly do the BeginTransaction, it garantues Dispose without Commit is rollback
+- ExecuteUpdateAsync executes instantly, without SaveChanges and change tracker 
+
+**Double transaction calling is neccesary for escaping deadlock and concurency problem, it holds 'session' for whole transaction**
+
+*/
