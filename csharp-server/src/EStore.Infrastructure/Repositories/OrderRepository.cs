@@ -91,5 +91,5 @@ and when first one commits, Psql evaluates again stock >= @q
 - ExecuteUpdateAsync executes instantly, without SaveChanges and change tracker 
 
 **Double transaction calling is neccesary for escaping deadlock and concurency problem, it holds 'session' for whole transaction**
-
+this is only edit for achievement - didnt know that I must push the commit with Co-authored
 */
