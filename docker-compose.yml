@@ -39,3 +39,21 @@ services:
         limits:
           cpus: "${APP_CPUS:-2}"
           memory: 1g
+
+  csharp-server:
+    build: ./csharp-server
+    container_name: perftest-csharp
+    profiles: ["csharp"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_URLS: http://+:8083
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=shop;Username=shop;Password=shop;Maximum Pool Size=10"
+    ports:
+      - "8083:8083"
+    deploy:
+      resources:
+        limits:
+          cpus: "${APP_CPUS:-2}"
+          memory: 1g
