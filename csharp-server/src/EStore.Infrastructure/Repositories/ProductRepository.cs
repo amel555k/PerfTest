@@ -33,7 +33,7 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
 
     public Task<PagedResult<ProductDto>> SearchAsync(string q, int page, int size, CancellationToken ct)
     {
-        var pattern = $"%{EscapeLike(q)}";
+        var pattern = $"%{EscapeLike(q)}%";
         var query = db.Products.AsNoTracking()
         // ILIKE FROM SQL, this means that if description or name mathces with pattern, push that row to result
             .Where(p => EF.Functions.ILike(p.Name, pattern) || EF.Functions.ILike(p.Description!, pattern)); 
@@ -71,21 +71,22 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
                 .ToList();
     }
 
-    private static async Task<PagedResult<ProductDto>> ToPageAsync(
-        IQueryable<Product> query, int page, int size, CancellationToken ct)
-    {
-        var total = await query.LongCountAsync(ct);
-        var offset = (long)page * size;
+   private static async Task<PagedResult<ProductDto>> ToPageAsync(
+    IQueryable<Product> query, int page, int size, CancellationToken ct)
+{
+    var offset = (long)page * size;
 
-        // Page after end: do not spend second query( and evadin int overflow to skip)
-        var content = offset >= total
-            ? new List<ProductDto>()
-            : await query.OrderBy(p => p.Id).Skip((int)offset).Take(size).Select(ToDto).ToListAsync(ct);
+    var content = offset > int.MaxValue
+        ? new List<ProductDto>()
+        : await query.OrderBy(p => p.Id).Skip((int)offset).Take(size).Select(ToDto).ToListAsync(ct);
 
-        var totalPages = (int)((total + size -1) / size);
+    var total = content.Count < size && (page == 0 || content.Count > 0)
+        ? offset + content.Count
+        : await query.LongCountAsync(ct);
 
-        return new PagedResult<ProductDto>(content, page, size, total, totalPages);
-    }
+    var totalPages = (int)((total + size - 1) / size);
+    return new PagedResult<ProductDto>(content, page, size, total, totalPages);
+}
 
     // Contract said LIKE '%q%' so we q treat like classic text (% i _ do not have special meaning)
     private static string EscapeLike(string s) =>

@@ -32,7 +32,7 @@ internal sealed class OrderRepository(AppDbContext db) : IOrderRepository
                 .ExecuteUpdateAsync(s => s.SetProperty(p => p.Stock, p => p.Stock - item.Quantity), ct);
 
             if (affected == 0)
-                throw new ConflictException($"Unsufficient stock for product: {item.ProductId}");
+                throw new ConflictException($"Insufficient stock for product: {item.ProductId}");
         }
 
         // writing order and items ( SaveChanges sends INSERTs like one batch)
