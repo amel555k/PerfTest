@@ -49,7 +49,7 @@ services:
         condition: service_healthy
     environment:
       ASPNETCORE_URLS: http://+:8083
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=shop;Username=shop;Password=shop;Maximum Pool Size=10"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=shop;Username=shop;Password=shop;Maximum Pool Size=10;Max Auto Prepare=20"
     ports:
       - "8083:8083"
     deploy:
