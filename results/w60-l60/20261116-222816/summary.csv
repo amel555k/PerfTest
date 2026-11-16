@@ -1,0 +1,2 @@
+server,cpus,run,requests,rps,avg_ms,p90_ms,p95_ms,p99_ms,max_ms,failed_rate
+csharp,2,1,6774,112.9,444.73,713.19,805.68,980.46,1211.88,0
