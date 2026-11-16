@@ -1,4 +1,3 @@
--- Šema
 CREATE TABLE products (
     id          BIGSERIAL PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
@@ -23,10 +22,11 @@ CREATE TABLE order_items (
     unit_price  NUMERIC(10,2) NOT NULL
 );
 
-
 CREATE INDEX idx_products_category ON products(category);
+CREATE INDEX idx_products_name ON products(name);
+CREATE INDEX idx_products_description ON products(description);
+CREATE INDEX idx_products_category_id ON products(category, id);
 CREATE INDEX idx_order_items_order ON order_items(order_id);
-
 
 INSERT INTO products (name, description, category, price, stock)
 SELECT
