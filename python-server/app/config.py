@@ -8,6 +8,5 @@ DB_PASSWORD = os.getenv("DB_PASSWORD", "shop")
 
 DB_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-POOL_SIZE = int(os.getenv("DB_POOL_SIZE", "10"))
-
+POOL_SIZE = int(os.getenv("DB_POOL_SIZE", "50"))
 MAX_PAGE_SIZE = 100
