@@ -1,0 +1,2 @@
+server,cpus,run,requests,rps,avg_ms,p90_ms,p95_ms,p99_ms,max_ms,failed_rate
+spring,2,1,5772,96.2,521.45,919.36,1105.77,1400.85,2211.39,0
